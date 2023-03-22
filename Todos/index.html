@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todos</title>
+  </head>
+  <body>
+    <h1>Todos</h1>
+    <form action="">
+      <input type="text" placeholder="Add todo" id="todoText" />
+      <button type="submit">Add Todo</button>
+    </form>
+
+    <input type="text" id="type-todo" placeholder="Type your todo" />
+    <input type="checkbox" id="hide-completed" />
+    <label for="hide-completed">Hide Completed</label>
+    <select name="search-category" id="filter-by">
+      <option value="by-edited">Sort by last edited</option>
+      <option value="by-created">Sort by recent created</option>
+      <option value="by-alphabetical">Sort alphabetically</option>
+    </select>
+    <div id="display-incomplete"></div>
+    <div id="search-todo"></div>
+
+    <script src="js/todos-app.js"></script>
+  </body>
+</html>
