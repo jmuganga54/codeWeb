@@ -15,27 +15,18 @@ const notes = [
 
 //Variables
 const notesContainer = document.querySelector("#notes");
+const searchText = document.querySelector("#searchText");
+
 const filter = {
   searchText: "",
 };
 
-//Functions
-const renderNotes = (notes, filter) => {
-  const filterNotes = notes.filter((note) => {
-    return note.title.toLowerCase().includes(filter.searchText.toLowerCase());
-  });
-
-  notesContainer.innerHTML = "";
-  filterNotes.forEach((filterNote) => {
-    const noteEl = document.createElement("p");
-    noteEl.textContent = filterNote.title;
-    notesContainer.appendChild(noteEl);
-  });
-};
-
 //adaEventListener
-document.querySelector("#searchText").addEventListener("change", (e) => {
+searchText.addEventListener("change", (e) => {
   console.log("Something changed");
   filter.searchText = e.target.value;
   renderNotes(notes, filter);
 });
+
+//function call
+renderNotes(notes, filter);
