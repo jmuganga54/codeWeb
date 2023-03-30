@@ -7,10 +7,10 @@ const notes = getSavedNotes();
 const notesContainer = document.querySelector("#notes");
 
 //filter object
-//When searching for notes, you can use text: searchText or  sortBy: byEdited
+// When searching for notes, you can use text: searchText or  sortBy: byEdited
 const filter = {
   searchText: "",
-  sortBy: "byEdited",
+  sortBy: "byEdited"
 };
 
 //render notes
@@ -22,15 +22,15 @@ renderNotes(notes, filter);
 document.querySelector("#searchText").addEventListener("change", (e) => {
   //capture the value entered, assign it to filter.searchText
   filter.searchText = e.target.value;
-  //render notes again
+  //render notes again, according to the filter array
   renderNotes(notes, filter);
 });
 
 //When createNotes button is clicked.
 document.querySelector("#createNotes").addEventListener("click", (e) => {
-  //capture  id
+  //create an id, which will be assign to newly created note
   const id = uuidv4();
-  //capture time
+  //create a timestamp, on when the notes were created
   const timestamp = moment().valueOf();
 
   //push the create note to [notes] array
@@ -47,4 +47,13 @@ document.querySelector("#createNotes").addEventListener("click", (e) => {
 
   //send to another page
   location.replace("./edit.html");
+});
+
+//when sortBy select is changed
+document.querySelector("#filter-by").addEventListener("change", (e) => {
+  //capture the value selected and assign it to the filter object
+  filter.sortBy = e.target.value;
+
+  //render the notes again, based on the select
+  renderNotes(notes, filter);
 });
