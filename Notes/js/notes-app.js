@@ -1,32 +1,50 @@
-const notes = [
-  {
-    title: "My next trip",
-    body: "I would like to go to Spain",
-  },
-  {
-    title: "Habits to work on",
-    body: "Exercise, Eating a bit better",
-  },
-  {
-    title: "Office modifications",
-    body: "Get a new seat",
-  },
-];
+"use strict";
+
+//Reading the existing notes from localStorage
+const notes = getSavedNotes();
 
 //Variables
 const notesContainer = document.querySelector("#notes");
-const searchText = document.querySelector("#searchText");
 
+//filter object
+//When searching for notes, you can use text: searchText or  sortBy: byEdited
 const filter = {
   searchText: "",
+  sortBy: "byEdited",
 };
 
+//render notes
+renderNotes(notes, filter);
+
 //adaEventListener
-searchText.addEventListener("change", (e) => {
-  console.log("Something changed");
+
+//When searchText input is changed
+document.querySelector("#searchText").addEventListener("change", (e) => {
+  //capture the value entered, assign it to filter.searchText
   filter.searchText = e.target.value;
+  //render notes again
   renderNotes(notes, filter);
 });
 
-//function call
-renderNotes(notes, filter);
+//When createNotes button is clicked.
+document.querySelector("#createNotes").addEventListener("click", (e) => {
+  //capture  id
+  const id = uuidv4();
+  //capture time
+  const timestamp = moment().valueOf();
+
+  //push the create note to [notes] array
+  notes.push({
+    id: id,
+    title: "",
+    body: "",
+    createdAt: timestamp,
+    updateAt: timestamp,
+  });
+
+  //saved notes, saving the [notes] array to localStorage after new notes being pushed
+  saveNotes(notes);
+
+  //send to another page
+  location.replace("./edit.html");
+});
