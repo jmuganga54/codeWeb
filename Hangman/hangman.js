@@ -1,20 +1,20 @@
 /**
  *
  * @param {string} word - word to be guessed
- * @param {number} remainGuess - number of guess to guess
+ * @param {number} remainGuess - number of remaining guess to guess
  *
  *
  */
 const Hangman = function (word, remainGuess) {
   this.word = word.toLowerCase().split("");
-  this.guessLetter = ["c"];
+  this.guessLetter = [];
   this.remainGuess = remainGuess;
   this.status = "playing";
 };
 
 /**
  *
- * @returns word with guessed letter, and missing (*) letter
+ * @returns word with guessed letter, or missing (*) letter
  */
 Hangman.prototype.getPuzzle = function () {
   let puzzle = "";
@@ -41,10 +41,12 @@ Hangman.prototype.makeGuess = function (guess) {
 
   //checking if a guess is a bad guess
   const isBadGuess = !this.word.includes(guess);
+  debugger;
 
   if (isUnique) {
     //if the guess is unique push it to guessLetter array
     this.guessLetter.push(guess);
+    debugger;
   }
 
   /**
@@ -56,9 +58,10 @@ Hangman.prototype.makeGuess = function (guess) {
 
   if (isUnique && isBadGuess) {
     this.remainGuess--;
+    debugger;
   }
 
-  this.calculateStatus;
+  this.calculateStatus();
 };
 
 Hangman.prototype.calculateStatus = function () {
@@ -66,22 +69,43 @@ Hangman.prototype.calculateStatus = function () {
   //Checking if all the letters of the word are in guessedLetters array
   this.word.forEach((letter) => {
     if (this.guessLetter.includes(letter)) {
+      debugger;
       // finished = true
     } else {
       finished = false;
+      debugger;
     }
   });
 
   if (this.remainGuess === 0) {
     this.status = "failed";
+    debugger;
   } else if (finished) {
     this.status = "finished";
+    debugger;
   } else {
     this.status = "playing";
+    debugger;
   }
+
+  console.log(this.guessMessage());
 };
 
+Hangman.prototype.guessMessage = function () {
+  debugger;
+  if (this.status === "playing") {
+    debugger;
+    return `Guesses left: ${this.remainGuess}`;
+  } else if (this.status === "failed") {
+    debugger;
+    return `Nice try the word was ${this.word.join("")}`;
+  } else {
+    debugger;
+    return `Great work you guessed the word`;
+  }
+};
 const guess1 = new Hangman("cat", 2);
+debugger;
 
 const guess2 = new Hangman("joseph", 5);
 
@@ -90,9 +114,7 @@ const guess2 = new Hangman("joseph", 5);
  */
 window.addEventListener("keydown", (e) => {
   const guess = e.key;
-  console.log("Guess " + guess);
+  console.log("Guess: " + guess);
   guess1.makeGuess(guess);
   console.log(guess1.getPuzzle());
-  console.log(guess1.remainGuess);
-  console.log(guess1.status);
 });
